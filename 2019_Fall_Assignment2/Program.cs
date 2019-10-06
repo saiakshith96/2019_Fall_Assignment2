@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace _2019_Fall_Assignment2
 {
@@ -103,7 +106,7 @@ namespace _2019_Fall_Assignment2
         {
             try
             {
-                // Write your code here
+                // write your code here
             }
             catch
             {
@@ -117,7 +120,27 @@ namespace _2019_Fall_Assignment2
         {
             try
             {
-                // Write your code here
+                var ct = new Dictionary<char, int>();
+                int sum = 0;
+                for (int i = 0; i < keyboard.Length; i++)
+                {
+                    ct.Add(keyboard[i], i);
+                }
+                int ind = 0;
+                for (int i = 0; i < word.Length; i++)
+                {
+
+                    if (ct.ContainsKey(word[i]))
+                    {
+                        char c = word[i];
+                        int temp = ct[word[i]];
+                        sum += Math.Abs(temp - ind);
+                        ind = temp;
+
+                    }
+
+                }
+                return sum;
             }
             catch
             {
@@ -159,7 +182,28 @@ namespace _2019_Fall_Assignment2
         {
             try
             {
-                // Write your code here
+                int[] answer = new int[A.Length];
+                int y = A.Length - 1;
+
+                int check = y;
+                int x = 0;
+                while (x < y)
+                {
+                    if (Math.Abs(A[y]) > Math.Abs(A[x])) //iterating array from 0 on one side and from last on another side
+                    {
+                        answer[check] = A[y] * A[y]; //if  absolute value of last element is > than first element's abs value then add the largest element with index in answer array. 
+                        y--;
+                    }
+                    else
+                    {
+                        answer[check] = A[x] * A[x]; // opposite of above
+                        x++;
+                    }
+                    check--; //decrement index of answer everytime the loop iterartes.
+
+                }
+                return answer;
+
             }
             catch
             {
@@ -173,7 +217,35 @@ namespace _2019_Fall_Assignment2
         {
             try
             {
-                // Write your code here
+                char[] check = s.ToCharArray();
+                char[] ori = s.ToCharArray();
+                Array.Reverse(check);
+                char[] rev = check;
+                int d = 0;
+                List<char> o = new List<char>();
+                foreach (var x in ori)
+                {
+                    o.Add(x);
+                }
+                List<char> r = new List<char>();
+                foreach (var x in check)
+                {
+                    r.Add(x);
+                }
+                for (int i = 0; i < s.Length - 1; i++)
+                {
+
+                    if (o[i] != r[i])
+                    {
+                        o.Remove(r[i]); //chechking each element whether equal or not by comparing originl aray and reverse array and if not equal remove that single char from both original and everse and again do the analysis and every time incrementing d hence if value of d is 0 or 1 says that by removing 0 or 1char from string if we retuen true then it may become palindrome
+                        r.Remove(r[i]);
+
+                        d++;
+                    }
+
+                }
+                if (d <= 1) return true;
+                else return false;
             }
             catch
             {
