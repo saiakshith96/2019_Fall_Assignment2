@@ -15,6 +15,7 @@ namespace _2019_Fall_Assignment2
             int[] intersect = Intersect(nums1, nums2);
             Console.WriteLine("Intersection of two arrays is: ");
             DisplayArray(intersect);
+
             Console.WriteLine("\n");
 
             int[] A = { 5, 7, 3, 9, 4, 9, 8, 3, 1 };
