@@ -34,7 +34,7 @@ namespace _2019_Fall_Assignment2
             Display2DArray(flipAndInvertedImage);
             Console.Write("\n");
 
-            int[,] intervals = { { 0, 30 }, { 5, 10 }, { 15, 20 } };
+            int[,] intervals = { { 29, 30 }, { 5, 10 }, { 15, 20 } };
             int minMeetingRooms = MinMeetingRooms(intervals);
             Console.WriteLine("Minimum meeting rooms needed = {0}\n", minMeetingRooms);
 
@@ -78,7 +78,44 @@ namespace _2019_Fall_Assignment2
         {
             try
             {
-                // Write your code here
+                int len = nums.Length;
+                int start = 0;
+                int end = len - 1;
+                int c = -1;
+
+
+
+                while (start <= end)
+                {
+                    int mid = (start + end) / 2;
+                    if (nums[mid] == target)
+                    {
+                        c = mid; //if mid element is out target then break and dispplay
+                        break;
+                    }
+                    else if (nums[mid] > target) //if target is on right half
+                    {
+                        end = mid - 1;     //divide again this right half to two parts 
+                        if (mid == 0)     //if first elemet is our target then c is equal to mid
+                            c = mid;
+                        else if ((nums[mid - 1] < target)) 
+                            c = mid; //as mid start from 0 c initiated as -1
+
+                    }
+                    else if ((nums[mid] < target)) //opposite of above part
+                    {
+                        start = mid + 1;
+
+                        if (mid == end)
+                            c = mid + 1;
+                        else if ((nums[mid + 1] > target))
+                            c = mid + 1;
+                    }
+
+
+                }
+                return c;
+
             }
             catch
             {
@@ -92,7 +129,34 @@ namespace _2019_Fall_Assignment2
         {
             try
             {
-                // Write your code here
+                List<int> result = new List<int>();
+                int a = nums1.Length;
+                int b = nums2.Length;
+                Array.Sort(nums1);
+                Array.Sort(nums2);
+                int i = 0;
+                int j = 0;
+
+                while (i < a && j < b)
+                {
+                    if (nums1[i] > nums2[j])
+
+                        j++;
+
+                    else if (nums1[i] < nums2[j])
+
+                        i++;
+
+                    else
+                    {
+                        result.Add(nums1[i]);
+                        i++;
+                        j++;
+                    }
+
+                }
+                return result.ToArray();
+
             }
             catch
             {
@@ -168,7 +232,37 @@ namespace _2019_Fall_Assignment2
         {
             try
             {
-                // Write your code here
+                
+                List<int> start = new List<int>();
+                List<int> end = new List<int>();
+                for (int k = 0; k < intervals.GetLength(0); k++)
+                
+                    start.Add(intervals[k, 0]); //adding start time  values to start list
+                
+                for (int k = 0; k < intervals.GetLength(0); k++)
+                
+                    end.Add(intervals[k, 1]); //adding end time values to end list
+                
+                start.Sort();
+                end.Sort();
+                int i = 0, j = 0, rooms = 0;
+                while (i < intervals.GetLength(0))
+                {
+
+                    if (start[i] < end[j]) //checking if start time of next meeting is less than end time of upcoming meeting
+
+                        i++; //if it is less then we keep track of these meetings in room numbers
+                    
+
+                    else if (start[i] > end[j]) //checking if start time of undergoing meeting is > end time of old meeting
+                    
+                        j++; //if it doesn't satisfy then we keep same meeting room number and doesnot increment j whle if it fails then we need to accomodate this meeting in new room
+                    
+                    
+                    rooms = Math.Max(rooms, i - j); // we need to accomodate all meetings as possible by alloting new room by calculating diff b/w new room(i) and meetings occured in old rooms(or meetings happened in used rooms)(j)
+                }
+                
+                return rooms;
             }
             catch
             {
