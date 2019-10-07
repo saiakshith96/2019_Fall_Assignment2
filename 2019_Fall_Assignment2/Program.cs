@@ -170,14 +170,34 @@ namespace _2019_Fall_Assignment2
         {
             try
             {
-                // write your code here
+                int ret = -1;
+                ArrayList dummy = new ArrayList();
+                
+                var m = new System.Collections.Generic.SortedDictionary<int, int>(); //taking a sorted dict
+                Array.Sort(A);
+                int n = A.Length;
+                int[] arr = new int[A.Length];
+                for (int i = 0; i < n; i++)
+                {
+                    if (!m.ContainsKey(A[i]))
+                        m.Add(A[i], i); //adding char of string in key and index to value in dict
+                    else
+                        dummy.Add(A[i]);//if any repeated element hits it will be added to dummy lit
+                }
+                foreach (int d in dummy) // for each repeated element in dummy loop remove the corresponding element from dict
+                {
+                    if (m.ContainsKey(d))
+                    {
+                        m.Remove(d);
+                    }
+                }
+                ret = m.Keys.Last();//returns the max i.e last key as it is sorted dict
+                return ret;
             }
             catch
             {
-                Console.WriteLine("Exception occured while computing LargestUniqueNumber()");
+                return -1;
             }
-
-            return 0;
         }
 
         public static int CalculateTime(string keyboard, string word)
@@ -214,11 +234,42 @@ namespace _2019_Fall_Assignment2
             return 0;
         }
 
-        public static int[,] FlipAndInvertImage(int[,] A)
+        public static int[,] FlipAndInvertImage(int[,] a)
         {
             try
             {
-                // Write your code here
+                int[,] b = new int[a.GetLength(0), a.GetLength(1)];
+
+                for (int i = 0; i < a.GetLength(0); i++)
+                {
+                    int y = a.GetLength(1) - 1;
+
+                    for (int j = 0; j < a.GetLength(1); j++)
+                    {
+
+                        b[i, y] = a[i, j];
+                        y--;
+                    }
+
+                }
+                for (int i = 0; i < a.GetLength(0); i++)
+
+                {
+                    for (int y = 0; y < a.GetLength(1); y++)
+                    {
+                        if (b[i, y] == 0)
+                        {
+                            b[i, y] = 1;
+                        }
+                        else if (b[i, y] == 1)
+                        {
+                            b[i, y] = 0;
+
+                        }
+                    }
+                                                         
+                }
+                return b;
             }
             catch
             {
@@ -331,7 +382,7 @@ namespace _2019_Fall_Assignment2
 
                     if (o[i] != r[i])
                     {
-                        o.Remove(r[i]); //chechking each element whether equal or not by comparing originl aray and reverse array and if not equal remove that single char from both original and everse and again do the analysis and every time incrementing d hence if value of d is 0 or 1 says that by removing 0 or 1char from string if we retuen true then it may become palindrome
+                        o.Remove(r[i]); //checking each element whether equal or not by comparing original array and reverse array and if not equal remove that single char from both original and everse and again do the analysis and every time incrementing d hence if value of d is 0 or 1 says that by removing 0 or 1char from string if we retuen true then it may become palindrome
                         r.Remove(r[i]);
 
                         d++;
