@@ -208,17 +208,16 @@ namespace _2019_Fall_Assignment2
                 int sum = 0;
                 for (int i = 0; i < keyboard.Length; i++)
                 {
-                    ct.Add(keyboard[i], i);
+                    ct.Add(keyboard[i], i); //add each character of keyboard string as key and indeax as value
                 }
                 int ind = 0;
                 for (int i = 0; i < word.Length; i++)
                 {
 
-                    if (ct.ContainsKey(word[i]))
+                    if (ct.ContainsKey(word[i])) //if dict contains char of given string
                     {
-                        char c = word[i];
-                        int temp = ct[word[i]];
-                        sum += Math.Abs(temp - ind);
+                        int temp = ct[word[i]]; //storeing value(index) of corresponding char of given word in temp 
+                        sum += Math.Abs(temp - ind); //taking absolute diff between this index and previous index a which char was found. Initially it has declared to ) and once we find the element it is then stored in index(ind).
                         ind = temp;
 
                     }
